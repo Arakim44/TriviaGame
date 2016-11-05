@@ -38,11 +38,22 @@ function setGame(){
    countDown : function(){
      var count = 5; //change this to 15 later!
      var counter = setInterval(timer, 1000);
+     var i = 0;
+      $('#question').show();
+      $('#choices1').show();
+      $('#choices2').show();
+
+
 
      function timer(){
         count = count - 1;
 
+        $('#question').html(trivia.questions[i]);
+        $('#choices1').html(trivia.choices1[i]);
+        $('#choices2').html(trivia.choices2[i]);
+
         if (count <= 0){
+          i ++;
           clearInterval(counter);
            $('#answerPage').show();
            $('#question').hide();
@@ -50,6 +61,24 @@ function setGame(){
            $('#choices2').hide();
            $('#choices3').hide();
            $('#choices4').hide();
+
+           setTimeout(myFun,3*1000);
+           function myFun(){
+             $('#question').show();
+             $('#choices1').show();
+             $('#choices2').show();
+             $('#question').html(trivia.questions[i]);
+             $('#choices1').html(trivia.choices1[i]);
+             $('#choices2').html(trivia.choices2[i]);
+             count = 5; //change this to 15 later!
+             counter = setInterval(timer, 1000);
+             $('#timer').html(count+" secs    ");
+
+
+           }
+
+
+
            //wait 5sec till next question
         }
         $('#timer').html(count+" secs");
@@ -57,16 +86,18 @@ function setGame(){
 
    },
 
-  questions : function(){
-    for (var i =0; i < trivia.questions.length; i++){
-    $('#question').show();
-    $('#question').html(trivia.questions[i]);
-    $('#choices1').show();
-    $('#choices2').show();
-    $('#choices1').html(trivia.choices1[i]);
-    $('#choices2').html(trivia.choices2[i]);
-    }
-  },
+  // questions : function(){
+  //   for (var i = 0; i < trivia.questions.length; i++){
+  //   $('#question').show();
+  //   $('#question').html(trivia.questions[i]);
+  //   $('#choices1').show();
+  //   $('#choices2').show();
+  //   $('#choices1').html(trivia.choices1[i]);
+  //   $('#choices2').html(trivia.choices2[i]);
+  //   // console.log(trivia.questions[i]);
+  //
+  //   }
+  // },
 
   //  Questions: function(){
   //    for (var i = 0; i < trivial.questions.length; i++){
@@ -120,7 +151,8 @@ return GameThing;
 $('#start-btn').click(function(){
   var triviaThing = setGame();
   triviaThing.countDown();
-  triviaThing.questions();
+  // triviaThing.questions();
+
   $('#timeLeft').show();
   $('#timer').show();
   $('#intro').hide();
